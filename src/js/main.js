@@ -70,7 +70,7 @@ O Senhor está cuidando de mim
 `;
 
 const slideWrapper = document.querySelector(".slide-wrapper");
-const songCredits = document.querySelector("footer span");
+const songCredits = document.querySelector(".song-info");
 
 const LINE_LENGTH = 30;
 
@@ -126,7 +126,6 @@ function createSlide(id, verses) {
   verses.map((verse) => {
     const verseBackground = document.createElement("strong");
 
-    console.log(verse, verse.length);
     let verseLines = [];
     if (verse.length <= LINE_LENGTH) {
       verseLines.push(verse);
@@ -204,7 +203,6 @@ function goToPrevSlide(activeSlide) {
 function init() {
   const reorganizedStanzas = reorganizeStanzas(input).split("\n\n");
 
-  console.log(reorganizedStanzas);
   reorganizedStanzas.forEach((stanza, index) => {
     createSlide(index, stanza.split("\n").filter(Boolean));
   });
