@@ -71,7 +71,6 @@ O Senhor está cuidando de mim
 
 const slideWrapper = document.querySelector(".slide-wrapper");
 const songCredits = document.querySelector(".song-info");
-
 const LINE_LENGTH = 30;
 
 function reorganizeStanzas(lyric) {
@@ -85,18 +84,18 @@ function reorganizeStanzas(lyric) {
 
   let parsedLyrics = "";
   let size = 0;
-  let verses = 0;
   let lines = 0;
 
   cleanedLyric.forEach((verse) => {
-    lines += verse.length > LINE_LENGTH ? 2 : 1;
+    lines += Math.ceil(verse.length / LINE_LENGTH);
+
     size += verse.length;
 
     if (size > LINE_LENGTH * 4 || lines > 4) {
       parsedLyrics += "\n";
 
+      lines = Math.ceil(verse.length / LINE_LENGTH);
       size = verse.length;
-      lines = verse.length > LINE_LENGTH ? 2 : 1;
     }
 
     parsedLyrics += verse + "\n";
@@ -202,13 +201,13 @@ function goToPrevSlide(activeSlide) {
 
 function init() {
   const reorganizedStanzas = reorganizeStanzas(input).split("\n\n");
-
   reorganizedStanzas.forEach((stanza, index) => {
     createSlide(index, stanza.split("\n").filter(Boolean));
   });
 
   const firstSlide = document.querySelector("[data-slide='0']");
   firstSlide.classList.add("active");
+
   songCredits.classList.add("hide");
 
   window.addEventListener("keydown", (event) => {
